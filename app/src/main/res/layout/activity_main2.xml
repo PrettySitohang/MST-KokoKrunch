@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="20dp"
+    android:background="@color/bg"
+    tools:context=".MainActivity2">
+
+
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:fontFamily="@font/poppinsmedium"
+        android:gravity="center"
+        android:padding="30dp"
+        android:text="Koko Krunch adalah sereal sarapan terkemuka berasa cokelat dengan bentuk kepala maskot beruang ikonik yang diproduksi oleh Nestlé."
+        android:textColor="@color/brown_text"
+        android:textSize="14sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/Judul" />
+
+    <TextView
+        android:id="@+id/textView5"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:fontFamily="@font/poppinsmedium"
+        android:lineSpacingExtra="4dp"
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp"
+        android:text="• Energi Total: 120 kkal\n• Karbohidrat Total: 25 gram (memenuhi ~8% AKG)\n• Gula: 8 gram\n• Serat Pangan: 2 gram (memenuhi ~8% AKG)\n• Protein: 2 gram (memenuhi ~4% AKG)\n• Lemak Total: 1 gram (memenuhi ~1% AKG)\n• Natrium (Garam): 45 mg (memenuhi ~3% AKG)"
+        android:textColor="@color/brown_text"
+        android:textSize="14sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/textView4" />
+
+    <TextView
+        android:id="@+id/textView4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="112dp"
+        android:layout_marginTop="20dp"
+        android:fontFamily="@font/chewy_regular"
+        android:padding="10dp"
+        android:text="Komposisi Gizi:"
+        android:textColor="@color/brown_text"
+        android:textSize="22sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/imageView2" />
+
+    <TextView
+        android:id="@+id/Judul"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="40dp"
+        android:fontFamily="@font/chewy_regular"
+        android:text="Koko Krunch"
+        android:textColor="@color/brown_text"
+        android:textSize="34sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/imageView2"
+        android:layout_width="220dp"
+        android:layout_height="220dp"
+        android:layout_marginTop="12dp"
+        android:scaleType="fitCenter"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.529"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/textView3"
+        app:srcCompat="@drawable/kokokruch2" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
