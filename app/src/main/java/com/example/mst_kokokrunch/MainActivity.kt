@@ -29,5 +29,6 @@ class MainActivity : AppCompatActivity() {
             val intent = Intent(this, GuestActivity::class.java)
             startActivity(intent)
         }
+  
     }
 }

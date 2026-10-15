@@ -33,5 +33,9 @@ class GuestActivity : AppCompatActivity() {
             val intent = Intent(this, CatalogActivity::class.java)
             startActivity(intent)
         }
+        binding.btnMenu.setOnClickListener {
+            val intent = Intent(this, ProfileActivity::class.java)
+            startActivity(intent)
+        }
     }
 }

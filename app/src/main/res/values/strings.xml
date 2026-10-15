@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">MST-KokoKrunch</string>
+    <string name="auth_daftar_text">Belum punya akun? <b>Daftar</b></string>
 </resources>

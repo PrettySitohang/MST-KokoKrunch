@@ -5,4 +5,6 @@
     <color name="bg">#E2BA94</color>
     <color name="button">#5D3A22</color>
     <color name="brown_text">#502A0E</color>
+    <color name="Secondary">#E2D62F</color>
+    <color name="Primary">#294D29</color>
 </resources>
