@@ -33,7 +33,7 @@ class SplashScreenActivity : AppCompatActivity() {
 
             // 2. Tentukan tujuan berdasarkan status login
             val targetActivity = if (isLoggedIn) {
-                MainActivity::class.java
+                BaseActivity::class.java
             } else {
                 AuthActivity::class.java
             }

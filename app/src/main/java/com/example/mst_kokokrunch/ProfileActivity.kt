@@ -29,8 +29,5 @@ class ProfileActivity : AppCompatActivity() {
         val savedEmail = sharedPref.getString("user_email", "pretti@mei")
         binding.tvEmail.text = "Email: $savedEmail"
 
-        binding.btnBack.setOnClickListener {
-            finish()
-        }
     }
 }
