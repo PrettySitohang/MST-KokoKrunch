@@ -3,12 +3,12 @@ package com.example.mst_kokokrunch
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.example.mst_kokokrunch.databinding.ActivityAuthBinding
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 
 class AuthActivity : AppCompatActivity() {
 
@@ -27,33 +27,51 @@ class AuthActivity : AppCompatActivity() {
             insets
         }
 
+        // 1. Tombol Masuk
         binding.btnMasuk.setOnClickListener {
-            val email = binding.etEmail.text.toString().trim()
-            val password = binding.etPassword.text.toString().trim()
+            val usernameInput = binding.etEmail.text.toString().trim()
+            val passwordInput = binding.etPassword.text.toString().trim()
 
-            // 1. Validasi input kosong
-            if (email.isEmpty() || password.isEmpty()) {
-                Toast.makeText(this, "Email dan Kata Sandi wajib diisi!", Toast.LENGTH_SHORT).show()
+            if (usernameInput.isEmpty() || passwordInput.isEmpty()) {
+                showErrorDialog("Semua kolom (Username/Email dan Password) wajib diisi!")
                 return@setOnClickListener
             }
 
-            // 2. Validasi Kredensial Dummy
-            if (email == "pretti@mei" && password == "p24") {
-                // Simpan status is_logged_in = true
-                val sharedPref = getSharedPreferences("user_session", Context.MODE_PRIVATE)
-                val editor = sharedPref.edit()
-                editor.putBoolean("is_logged_in", true)
-                editor.apply()
+            // Ambil data terdaftar dari SharedPreferences
+            val sharedPref = getSharedPreferences("user_data", Context.MODE_PRIVATE)
+            val savedUsername = sharedPref.getString("username", "") ?: ""
+            val savedPassword = sharedPref.getString("password", "") ?: ""
 
-                Toast.makeText(this, "Login Berhasil!", Toast.LENGTH_SHORT).show()
+            // Kondisi Login: (username == password) ATAU (sesuai data SharedPreferences)
+            val isRuleUsernameEqualsPassword = (usernameInput == passwordInput)
+            val isMatchingSavedData = (savedUsername.isNotEmpty() && usernameInput == savedUsername && passwordInput == savedPassword)
 
-                // Pindah ke MainActivity
-                val intent = Intent(this, ProfileActivity::class.java)
-                intent.putExtra("EXTRA_EMAIL", email)
-                finish() // Tutup AuthActivity agar tidak bisa diback
+            if (isRuleUsernameEqualsPassword || isMatchingSavedData) {
+                // Simpan session
+                val sessionPref = getSharedPreferences("user_session", Context.MODE_PRIVATE)
+                sessionPref.edit().putBoolean("is_logged_in", true).apply()
+
+                val intent = Intent(this, BaseActivity::class.java)
+                intent.putExtra("EXTRA_EMAIL", usernameInput)
+                startActivity(intent)
+                finish()
             } else {
-                Toast.makeText(this, "Email atau Kata Sandi salah!", Toast.LENGTH_SHORT).show()
+                showErrorDialog("Login Gagal! Username dan Password tidak cocok.")
             }
         }
+
+        // 2. Tombol Register With Gmail
+        binding.btnRegisterGmail.setOnClickListener {
+            val intent = Intent(this, InputGmailActivity::class.java)
+            startActivity(intent)
+        }
+    }
+
+    private fun showErrorDialog(message: String) {
+        MaterialAlertDialogBuilder(this)
+            .setTitle("Error Login")
+            .setMessage(message)
+            .setPositiveButton("OK", null)
+            .show()
     }
 }

@@ -92,7 +92,7 @@
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="446dp"
                     android:padding="24dp">
 
                     <TextView
@@ -103,9 +103,9 @@
                         android:textColor="#222222"
                         android:textSize="22sp"
                         android:textStyle="bold"
-                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintEnd_toEndOf="parent"/>
+                        app:layout_constraintTop_toTopOf="parent" />
 
                     <!-- Input Email  -->
                     <com.google.android.material.textfield.TextInputLayout
@@ -117,9 +117,9 @@
                         android:hint="Email"
                         app:boxStrokeColor="@color/Primary"
                         app:hintTextColor="@color/Primary"
-                        app:layout_constraintTop_toBottomOf="@id/tvCardTitle"
+                        app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintEnd_toEndOf="parent">
+                        app:layout_constraintTop_toBottomOf="@id/tvCardTitle">
 
                         <com.google.android.material.textfield.TextInputEditText
                             android:id="@+id/etEmail"
@@ -138,17 +138,17 @@
                         android:layout_marginTop="16dp"
                         android:hint="Kata Sandi"
                         app:boxStrokeColor="@color/Primary"
-                        app:hintTextColor="@color/Primary"
                         app:endIconMode="password_toggle"
-                        app:layout_constraintTop_toBottomOf="@id/tilEmail"
+                        app:hintTextColor="@color/Primary"
+                        app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintEnd_toEndOf="parent">
+                        app:layout_constraintTop_toBottomOf="@id/tilEmail">
 
                         <com.google.android.material.textfield.TextInputEditText
                             android:id="@+id/etPassword"
                             android:layout_width="match_parent"
-                            android:fontFamily="@font/tenorsans_egular"
                             android:layout_height="wrap_content"
+                            android:fontFamily="@font/tenorsans_egular"
                             android:inputType="textPassword" />
                     </com.google.android.material.textfield.TextInputLayout>
 
@@ -157,21 +157,21 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="16dp"
-                        app:layout_constraintTop_toBottomOf="@id/tilPassword"
+                        app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintEnd_toEndOf="parent">
+                        app:layout_constraintTop_toBottomOf="@id/tilPassword">
 
                         <CheckBox
                             android:id="@+id/cbRemember"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:buttonTint="@color/Primary"
                             android:text="Ingat Saya"
                             android:textColor="#555555"
                             android:textSize="12sp"
-                            android:buttonTint="@color/Primary"
-                            app:layout_constraintTop_toTopOf="parent"
                             app:layout_constraintBottom_toBottomOf="parent"
-                            app:layout_constraintStart_toStartOf="parent" />
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
 
                         <TextView
                             android:id="@+id/tvForgot"
@@ -181,27 +181,47 @@
                             android:text="Lupa Kata Sandi"
                             android:textColor="#555555"
                             android:textSize="12sp"
-                            app:layout_constraintTop_toTopOf="parent"
                             app:layout_constraintBottom_toBottomOf="parent"
-                            app:layout_constraintEnd_toEndOf="parent" />
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
                     </androidx.constraintlayout.widget.ConstraintLayout>
 
+
                     <!-- Tombol Pil Masuk -->
+
+                    <!-- Teks Daftar di Bagian Bawah -->
+
                     <com.google.android.material.button.MaterialButton
                         android:id="@+id/btnMasuk"
                         android:layout_width="match_parent"
                         android:layout_height="48dp"
-                        android:layout_marginTop="24dp"
+                        android:layout_marginTop="16dp"
+                        android:backgroundTint="#2A4F35"
                         android:text="Masuk"
                         android:textColor="@android:color/white"
                         android:textSize="14sp"
-                        android:backgroundTint="#2A4F35"
                         app:cornerRadius="24dp"
-                        app:layout_constraintTop_toBottomOf="@id/layoutOptions"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.0"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintEnd_toEndOf="parent"/>
+                        app:layout_constraintTop_toBottomOf="@id/layoutOptions" />
 
-                    <!-- Teks Daftar di Bagian Bawah -->
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/btnRegisterGmail"
+                        style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                        android:layout_width="match_parent"
+                        android:layout_height="48dp"
+                        android:layout_marginTop="8dp"
+                        android:text="Register With Gmail"
+                        android:textColor="#2A4F35"
+                        android:textSize="14sp"
+                        app:cornerRadius="24dp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.0"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/btnMasuk"
+                        app:strokeColor="#2A4F35" />
+
                     <TextView
                         android:id="@+id/tvDaftar"
                         android:layout_width="wrap_content"
@@ -209,11 +229,11 @@
                         android:text="@string/auth_daftar_text"
                         android:textColor="#555555"
                         android:textSize="12sp"
-                        android:layout_marginTop="20dp"
-                        app:layout_constraintTop_toBottomOf="@id/btnMasuk"
-                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/btnRegisterGmail"
                         app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintBottom_toBottomOf="parent" />
+                        app:layout_constraintHorizontal_bias="0.497"
+                        app:layout_constraintStart_toStartOf="parent" />
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
