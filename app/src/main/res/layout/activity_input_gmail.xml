@@ -124,6 +124,7 @@
                             android:id="@+id/etGmailInput"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
+                            android:importantForAutofill="no"
                             android:fontFamily="@font/tenorsans_egular"
                             android:inputType="textEmailAddress" />
                     </com.google.android.material.textfield.TextInputLayout>

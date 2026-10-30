@@ -16,8 +16,22 @@ class AuthActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        enableEdgeToEdge()
 
+        // 1. CEK AUTO-LOGIN: Jika user sudah login, langsung lempar ke BaseActivity
+        val sessionPref = getSharedPreferences("user_session", Context.MODE_PRIVATE)
+        if (sessionPref.getBoolean("is_logged_in", false)) {
+            val userDataPref = getSharedPreferences("user_data", Context.MODE_PRIVATE)
+            val savedEmail = userDataPref.getString("email", "") ?: ""
+
+            val intent = Intent(this, BaseActivity::class.java).apply {
+                putExtra("EXTRA_EMAIL", savedEmail)
+            }
+            startActivity(intent)
+            finish()
+            return
+        }
+
+        enableEdgeToEdge()
         binding = ActivityAuthBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
@@ -27,7 +41,7 @@ class AuthActivity : AppCompatActivity() {
             insets
         }
 
-        // 1. Tombol Masuk
+        // 2. Tombol Masuk
         binding.btnMasuk.setOnClickListener {
             val usernameInput = binding.etEmail.text.toString().trim()
             val passwordInput = binding.etPassword.text.toString().trim()
@@ -37,33 +51,51 @@ class AuthActivity : AppCompatActivity() {
                 return@setOnClickListener
             }
 
-            // Ambil data terdaftar dari SharedPreferences
+            // Ambil data hasil registrasi dari SharedPreferences
             val sharedPref = getSharedPreferences("user_data", Context.MODE_PRIVATE)
             val savedUsername = sharedPref.getString("username", "") ?: ""
+            val savedEmail = sharedPref.getString("email", "") ?: ""
             val savedPassword = sharedPref.getString("password", "") ?: ""
 
-            // Kondisi Login: (username == password) ATAU (sesuai data SharedPreferences)
+            // Kondisi Login: (username == password) ATAU (cocok dengan username/email & password terdaftar)
             val isRuleUsernameEqualsPassword = (usernameInput == passwordInput)
-            val isMatchingSavedData = (savedUsername.isNotEmpty() && usernameInput == savedUsername && passwordInput == savedPassword)
+            val isMatchingSavedData = (savedPassword.isNotEmpty() && passwordInput == savedPassword) &&
+                    (usernameInput == savedUsername || usernameInput == savedEmail)
 
             if (isRuleUsernameEqualsPassword || isMatchingSavedData) {
-                // Simpan session
-                val sessionPref = getSharedPreferences("user_session", Context.MODE_PRIVATE)
-                sessionPref.edit().putBoolean("is_logged_in", true).apply()
+                // Simpan status session login
+                sessionPref.edit().apply {
+                    putBoolean("is_logged_in", true)
+                    putString("logged_in_user", usernameInput)
+                    apply()
+                }
 
-                val intent = Intent(this, BaseActivity::class.java)
-                intent.putExtra("EXTRA_EMAIL", usernameInput)
+                val intent = Intent(this, BaseActivity::class.java).apply {
+                    putExtra("EXTRA_EMAIL", usernameInput)
+                }
                 startActivity(intent)
                 finish()
             } else {
-                showErrorDialog("Login Gagal! Username dan Password tidak cocok.")
+                showErrorDialog("Login Gagal! Username/Email dan Password tidak cocok.")
             }
         }
 
-        // 2. Tombol Register With Gmail
+        // 3. Tombol Register With Gmail
         binding.btnRegisterGmail.setOnClickListener {
             val intent = Intent(this, InputGmailActivity::class.java)
             startActivity(intent)
+        }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        // Otomatis isi kolom email/username jika user baru saja selesai registrasi di InputGmailActivity
+        val sharedPref = getSharedPreferences("user_data", Context.MODE_PRIVATE)
+        val registeredEmail = sharedPref.getString("email", "") ?: ""
+        val registeredUsername = sharedPref.getString("username", "") ?: ""
+
+        if (registeredEmail.isNotEmpty() && binding.etEmail.text.toString().isEmpty()) {
+            binding.etEmail.setText(registeredEmail.ifEmpty { registeredUsername })
         }
     }
 

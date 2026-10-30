@@ -100,7 +100,7 @@
             android:layout_height="wrap_content"
             android:paddingHorizontal="16dp"
             android:paddingTop="20dp"
-            android:paddingBottom="32dp">
+            android:paddingBottom="80dp">
 
             <!-- JUDUL HEADER KATALOG -->
             <TextView
@@ -333,6 +333,7 @@
 
             </LinearLayout>
 
+            <!-- BARIS PRODUK 2 -->
             <LinearLayout
                 android:id="@+id/row2"
                 android:layout_width="match_parent"
@@ -498,5 +499,7 @@
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </androidx.core.widget.NestedScrollView>
+
+
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

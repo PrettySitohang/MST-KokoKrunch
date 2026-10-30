@@ -1,7 +1,11 @@
 package com.example.mst_kokokrunch
 
-import android.content.Intent
+import android.app.DownloadManager
+import android.content.Context
+import android.net.Uri
 import android.os.Bundle
+import android.os.Environment
+import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
@@ -25,17 +29,37 @@ class GuestActivity : AppCompatActivity() {
             insets
         }
 
+        // Tombol Kembali
         binding.btnBack.setOnClickListener {
             finish()
         }
 
-        binding.btnLihatLainnya.setOnClickListener {
-            val intent = Intent(this, CatalogActivity::class.java)
-            startActivity(intent)
+        // Event Klik Unduh Sertifikat
+        binding.btnLihatSertifikat.setOnClickListener {
+            downloadCertificate()
         }
-        binding.btnMenu.setOnClickListener {
-            val intent = Intent(this, ProfileActivity::class.java)
-            startActivity(intent)
+    }
+
+    private fun downloadCertificate() {
+        // Ganti URL berikut dengan link file PDF/gambar sertifikat yang sebenarnya
+        val fileUrl = "https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf"
+        val fileName = "Sertifikat_Berkah_Palma.pdf"
+
+        try {
+            val request = DownloadManager.Request(Uri.parse(fileUrl))
+                .setTitle("Mengunduh Sertifikat")
+                .setDescription("Sedang mengunduh Sertifikat Berkah Palma...")
+                .setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED)
+                .setDestinationInExternalPublicDir(Environment.DIRECTORY_DOWNLOADS, fileName)
+                .setAllowedOverMetered(true)
+                .setAllowedOverRoaming(true)
+
+            val downloadManager = getSystemService(Context.DOWNLOAD_SERVICE) as DownloadManager
+            downloadManager.enqueue(request)
+
+            Toast.makeText(this, "Proses unduh dimulai. Silakan cek notifikasi ponsel!", Toast.LENGTH_SHORT).show()
+        } catch (e: Exception) {
+            Toast.makeText(this, "Gagal mengunduh: ${e.message}", Toast.LENGTH_SHORT).show()
         }
     }
 }

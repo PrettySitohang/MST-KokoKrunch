@@ -25,21 +25,28 @@ class CatalogActivity : AppCompatActivity() {
             insets
         }
 
+        // Fungsi untuk membuka DetailProductFragment
         val openDetailProduct = {
-            val intent = Intent(this, DetailProductActivity::class.java)
-            startActivity(intent)
+            supportFragmentManager.beginTransaction()
+                .replace(binding.main.id, DetailProductFragment())
+                .addToBackStack(null)
+                .commit()
         }
 
+        // Event klik item produk
         binding.itemProduct1.setOnClickListener { openDetailProduct() }
         binding.itemProduct2.setOnClickListener { openDetailProduct() }
         binding.itemProduct3.setOnClickListener { openDetailProduct() }
         binding.itemProduct4.setOnClickListener { openDetailProduct() }
 
+        // Event klik button Lihat Lebih
         binding.btnLihatLebih.setOnClickListener {
             val intent = Intent(this, WebViewActivity::class.java)
             startActivity(intent)
         }
 
+
+        // Tombol Kembali
         binding.btnBack.setOnClickListener {
             finish()
         }

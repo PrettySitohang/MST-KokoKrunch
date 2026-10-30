@@ -32,7 +32,7 @@
         </androidx.appcompat.widget.Toolbar>
     </com.google.android.material.appbar.AppBarLayout>
 
-    <!-- List Produk Keranjang -->
+    <!-- Konten Utama -->
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -46,239 +46,25 @@
             android:orientation="vertical"
             android:padding="16dp">
 
-            <!-- Checkbox Pilih Semua -->
-            <LinearLayout
+            <!-- Tampilan Saat Keranjang Kosong -->
+            <TextView
+                android:id="@+id/tvEmptyCart"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:gravity="center_vertical"
-                android:orientation="horizontal"
-                android:layout_marginBottom="12dp">
+                android:layout_marginTop="60dp"
+                android:gravity="center"
+                android:text="Keranjang kamu masih kosong.\nYuk pilih produk di katalog!"
+                android:textColor="#888888"
+                android:textSize="15sp"
+                android:visibility="gone" />
 
-                <CheckBox
-                    android:id="@+id/cbSelectAll"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:checked="true"
-                    android:text="Pilih Semua Produk"
-                    android:textColor="#2D3142"
-                    android:textSize="14sp"
-                    android:textStyle="bold"
-                    app:buttonTint="#2A4F35" />
-            </LinearLayout>
-
-            <!-- PRODUK 1: Bibit Sawit Unggul -->
-            <com.google.android.material.card.MaterialCardView
+            <!-- List Produk Dinamis dari CartManager -->
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rvCartItems"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="12dp"
-                app:cardBackgroundColor="@android:color/white"
-                app:cardCornerRadius="16dp"
-                app:cardElevation="1dp"
-                app:strokeWidth="0dp">
-
-                <androidx.constraintlayout.widget.ConstraintLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:padding="12dp">
-
-                    <CheckBox
-                        android:id="@+id/cbItem1"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:checked="true"
-                        app:buttonTint="#2A4F35"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent"
-                        app:layout_constraintBottom_toBottomOf="parent" />
-
-                    <com.google.android.material.imageview.ShapeableImageView
-                        android:id="@+id/imgProduct1"
-                        android:layout_width="70dp"
-                        android:layout_height="70dp"
-                        android:scaleType="centerCrop"
-                        android:src="@drawable/bibit"
-                        app:shapeAppearanceOverlay="@style/ShapeAppearance.Material3.Corner.Medium"
-                        app:layout_constraintStart_toEndOf="@id/cbItem1"
-                        app:layout_constraintTop_toTopOf="parent"
-                        app:layout_constraintBottom_toBottomOf="parent" />
-
-                    <TextView
-                        android:id="@+id/tvTitleItem1"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="12dp"
-                        android:text="Bibit Sawit Unggul (10 Bulan)"
-                        android:textColor="#2D3142"
-                        android:textSize="14sp"
-                        android:textStyle="bold"
-                        app:layout_constraintStart_toEndOf="@id/imgProduct1"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
-
-                    <TextView
-                        android:id="@+id/tvPriceItem1"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="4dp"
-                        android:text="Rp 45.000"
-                        android:textColor="#2A4F35"
-                        android:textSize="13sp"
-                        android:textStyle="bold"
-                        app:layout_constraintStart_toStartOf="@id/tvTitleItem1"
-                        app:layout_constraintTop_toBottomOf="@id/tvTitleItem1" />
-
-                    <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="8dp"
-                        android:gravity="center_vertical"
-                        android:orientation="horizontal"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintTop_toBottomOf="@id/tvPriceItem1">
-
-                        <com.google.android.material.button.MaterialButton
-                            android:id="@+id/btnMinus1"
-                            style="@style/Widget.Material3.Button.OutlinedButton"
-                            android:layout_width="28dp"
-                            android:layout_height="28dp"
-                            android:padding="0dp"
-                            android:text="-"
-                            android:textColor="#2A4F35"
-                            android:textSize="12sp"
-                            app:cornerRadius="6dp"
-                            app:strokeColor="#2A4F35" />
-
-                        <TextView
-                            android:id="@+id/tvQtyItem1"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginHorizontal="10dp"
-                            android:text="50"
-                            android:textColor="#2D3142"
-                            android:textSize="13sp"
-                            android:textStyle="bold" />
-
-                        <com.google.android.material.button.MaterialButton
-                            android:id="@+id/btnPlus1"
-                            android:layout_width="28dp"
-                            android:layout_height="28dp"
-                            android:padding="0dp"
-                            android:text="+"
-                            android:textColor="@android:color/white"
-                            android:textSize="12sp"
-                            app:backgroundTint="#2A4F35"
-                            app:cornerRadius="6dp" />
-                    </LinearLayout>
-
-                </androidx.constraintlayout.widget.ConstraintLayout>
-            </com.google.android.material.card.MaterialCardView>
-
-            <!-- PRODUK 2: Kecambah Sawit Topaz -->
-            <com.google.android.material.card.MaterialCardView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="12dp"
-                app:cardBackgroundColor="@android:color/white"
-                app:cardCornerRadius="16dp"
-                app:cardElevation="1dp"
-                app:strokeWidth="0dp">
-
-                <androidx.constraintlayout.widget.ConstraintLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:padding="12dp">
-
-                    <CheckBox
-                        android:id="@+id/cbItem2"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:checked="true"
-                        app:buttonTint="#2A4F35"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent"
-                        app:layout_constraintBottom_toBottomOf="parent" />
-
-                    <com.google.android.material.imageview.ShapeableImageView
-                        android:id="@+id/imgProduct2"
-                        android:layout_width="70dp"
-                        android:layout_height="70dp"
-                        android:scaleType="centerCrop"
-                        android:src="@drawable/logobpn"
-                        app:shapeAppearanceOverlay="@style/ShapeAppearance.Material3.Corner.Medium"
-                        app:layout_constraintStart_toEndOf="@id/cbItem2"
-                        app:layout_constraintTop_toTopOf="parent"
-                        app:layout_constraintBottom_toBottomOf="parent" />
-
-                    <TextView
-                        android:id="@+id/tvTitleItem2"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="12dp"
-                        android:text="Kecambah Kelapa Sawit Topaz 3"
-                        android:textColor="#2D3142"
-                        android:textSize="14sp"
-                        android:textStyle="bold"
-                        app:layout_constraintStart_toEndOf="@id/imgProduct2"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
-
-                    <TextView
-                        android:id="@+id/tvPriceItem2"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="4dp"
-                        android:text="Rp 12.000"
-                        android:textColor="#2A4F35"
-                        android:textSize="13sp"
-                        android:textStyle="bold"
-                        app:layout_constraintStart_toStartOf="@id/tvTitleItem2"
-                        app:layout_constraintTop_toBottomOf="@id/tvTitleItem2" />
-
-                    <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="8dp"
-                        android:gravity="center_vertical"
-                        android:orientation="horizontal"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintTop_toBottomOf="@id/tvPriceItem2">
-
-                        <com.google.android.material.button.MaterialButton
-                            android:id="@+id/btnMinus2"
-                            style="@style/Widget.Material3.Button.OutlinedButton"
-                            android:layout_width="28dp"
-                            android:layout_height="28dp"
-                            android:padding="0dp"
-                            android:text="-"
-                            android:textColor="#2A4F35"
-                            android:textSize="12sp"
-                            app:cornerRadius="6dp"
-                            app:strokeColor="#2A4F35" />
-
-                        <TextView
-                            android:id="@+id/tvQtyItem2"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginHorizontal="10dp"
-                            android:text="100"
-                            android:textColor="#2D3142"
-                            android:textSize="13sp"
-                            android:textStyle="bold" />
-
-                        <com.google.android.material.button.MaterialButton
-                            android:id="@+id/btnPlus2"
-                            android:layout_width="28dp"
-                            android:layout_height="28dp"
-                            android:padding="0dp"
-                            android:text="+"
-                            android:textColor="@android:color/white"
-                            android:textSize="12sp"
-                            app:backgroundTint="#2A4F35"
-                            app:cornerRadius="6dp" />
-                    </LinearLayout>
-
-                </androidx.constraintlayout.widget.ConstraintLayout>
-            </com.google.android.material.card.MaterialCardView>
+                android:nestedScrollingEnabled="false"
+                tools:listitem="@layout/item_cart" />
 
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>
@@ -315,7 +101,7 @@
                     android:id="@+id/tvTotalPrice"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Rp 3.450.000"
+                    android:text="Rp 0"
                     android:textColor="#2A4F35"
                     android:textSize="16sp"
                     android:textStyle="bold" />
@@ -328,7 +114,7 @@
                 android:layout_alignParentEnd="true"
                 android:layout_centerVertical="true"
                 android:paddingHorizontal="24dp"
-                android:text="Checkout (2)"
+                android:text="Checkout"
                 android:textColor="@android:color/white"
                 android:textSize="14sp"
                 android:textStyle="bold"

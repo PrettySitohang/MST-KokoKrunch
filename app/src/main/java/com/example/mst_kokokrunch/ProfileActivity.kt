@@ -1,7 +1,9 @@
 package com.example.mst_kokokrunch
 
 import android.content.Context
+import android.content.Intent
 import android.os.Bundle
+import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
@@ -25,9 +27,29 @@ class ProfileActivity : AppCompatActivity() {
             insets
         }
 
+        // 1. Tampilkan data email tersimpan
         val sharedPref = getSharedPreferences("user_session", Context.MODE_PRIVATE)
-        val savedEmail = sharedPref.getString("user_email", "pretti@mei")
+        val savedEmail = sharedPref.getString("logged_in_user", sharedPref.getString("user_email", "pretti@mei"))
         binding.tvEmail.text = "Email: $savedEmail"
 
+        // 2. Fungsi Logout saat tombol @+id/etlogout diklik
+        binding.etlogout.setOnClickListener {
+            // Hapus data sesi login
+            val sessionPref = getSharedPreferences("user_session", Context.MODE_PRIVATE)
+            sessionPref.edit().clear().apply()
+
+            // Hapus juga data pendaftaran (user_data)
+            val userDataPref = getSharedPreferences("user_data", Context.MODE_PRIVATE)
+            userDataPref.edit().clear().apply()
+
+            Toast.makeText(this, "Berhasil Logout!", Toast.LENGTH_SHORT).show()
+
+            // Arahkan kembali ke halaman Login (AuthActivity) & bersihkan riwayat halaman (backstack)
+            val intent = Intent(this, AuthActivity::class.java).apply {
+                flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+            }
+            startActivity(intent)
+            finish()
+        }
     }
 }

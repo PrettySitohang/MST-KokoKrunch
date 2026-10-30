@@ -30,20 +30,19 @@ class SplashScreenActivity : AppCompatActivity() {
             finish()
         }
 
-            // 1. Cek SharedPreferences
-//            val sharedPref = getSharedPreferences("user_session", Context.MODE_PRIVATE)
-//            val isLoggedIn = sharedPref.getBoolean("is_logged_in", false)
-//
-//            // 2. Tentukan tujuan berdasarkan status login
-//            val targetActivity = if (isLoggedIn) {
-//                BaseActivity::class.java
-//            } else {
-//                AuthActivity::class.java
-//            }
+//             1. Cek SharedPreferences
+            val sharedPref = getSharedPreferences("user_session", Context.MODE_PRIVATE)
+            val isLoggedIn = sharedPref.getBoolean("is_logged_in", false)
 
-            // 3. Pindah Halaman & Tutup SplashScreen
-//            startActivity(Intent(this@SplashScreenActivity, targetActivity))
-//            finish()
-//        }
+            // 2. Tentukan tujuan berdasarkan status login
+            val targetActivity = if (isLoggedIn) {
+                BaseActivity::class.java
+            } else {
+                AuthActivity::class.java
+            }
+
+//             3. Pindah Halaman & Tutup SplashScreen
+            startActivity(Intent(this@SplashScreenActivity, targetActivity))
+            finish()
+        }
     }
-}

@@ -41,7 +41,9 @@ class BaseActivity : AppCompatActivity() {
                 else -> false
             }
         }
+
     }
+
     private fun replaceFragment(fragment: Fragment) {
         supportFragmentManager.beginTransaction()
             .replace(binding.fragmentContainer.id, fragment)
