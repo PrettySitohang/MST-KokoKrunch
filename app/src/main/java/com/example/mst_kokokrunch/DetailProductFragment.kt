@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import com.example.mst_kokokrunch.databinding.FragmentDetailProductBinding
 
@@ -12,6 +13,14 @@ class DetailProductFragment : Fragment() {
 
     private var _binding: FragmentDetailProductBinding? = null
     private val binding get() = _binding!!
+
+    companion object {
+        private const val ARG_PRODUCT_ID = "product_id"
+
+        fun newInstance(productId: String) = DetailProductFragment().apply {
+            arguments = bundleOf(ARG_PRODUCT_ID to productId)
+        }
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -24,6 +33,14 @@ class DetailProductFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        // Ambil produk berdasarkan id yang dikirim dari katalog
+        val product = ProductData.findById(requireArguments().getString(ARG_PRODUCT_ID).orEmpty())
+        if (product == null) {
+            parentFragmentManager.popBackStack()
+            return
+        }
+        binding.tvProductName.text = product.name
+
         // 1. Tombol Kembali (Kembali ke Katalog)
         binding.btnBack.setOnClickListener {
             parentFragmentManager.popBackStack()
@@ -34,27 +51,23 @@ class DetailProductFragment : Fragment() {
             val cartManager = CartManager(requireContext())
             val currentList = cartManager.getCartItems()
 
-            val productId = "ppks_540"
-            val productName = binding.tvProductName.text.toString()
-            val productPrice = 35000.0
-
-            val existingItem = currentList.find { it.id == productId }
+            val existingItem = currentList.find { it.id == product.id }
             if (existingItem != null) {
                 existingItem.quantity += 1
             } else {
                 currentList.add(
                     CartItem(
-                        id = productId,
-                        name = productName,
-                        price = productPrice,
+                        id = product.id,
+                        name = product.name,
+                        price = product.price,
                         quantity = 1,
-                        imageRes = R.drawable.bibit
+                        imageRes = product.imageRes
                     )
                 )
             }
 
             cartManager.saveCartItems(currentList)
-            Toast.makeText(requireContext(), "$productName masuk ke keranjang!", Toast.LENGTH_SHORT).show()
+            Toast.makeText(requireContext(), "${product.name} masuk ke keranjang!", Toast.LENGTH_SHORT).show()
         }
 
         binding.btnAddToBasket.setOnClickListener(addToCartListener)

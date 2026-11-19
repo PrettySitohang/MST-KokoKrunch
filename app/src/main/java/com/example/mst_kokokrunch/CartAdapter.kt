@@ -61,8 +61,9 @@ class CartAdapter(
     override fun getItemCount(): Int = cartItems.size
 
     fun updateData(newList: List<CartItem>) {
+        val copy = newList.toList()
         cartItems.clear()
-        cartItems.addAll(newList)
+        cartItems.addAll(copy)
         notifyDataSetChanged()
     }
 }

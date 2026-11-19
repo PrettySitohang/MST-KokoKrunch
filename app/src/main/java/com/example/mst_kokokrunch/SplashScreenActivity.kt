@@ -1,6 +1,5 @@
 package com.example.mst_kokokrunch
 
-import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import androidx.activity.enableEdgeToEdge
@@ -25,24 +24,21 @@ class SplashScreenActivity : AppCompatActivity() {
         }
 
         lifecycleScope.launch {
-            delay(2000) // Tunda 2 detik
-            startActivity(Intent(this@SplashScreenActivity, AuthActivity::class.java))
-            finish()
-        }
+            delay(2000)
 
-//             1. Cek SharedPreferences
-            val sharedPref = getSharedPreferences("user_session", Context.MODE_PRIVATE)
-            val isLoggedIn = sharedPref.getBoolean("is_logged_in", false)
+            val onboardingDone = getSharedPreferences("app_prefs", MODE_PRIVATE)
+                .getBoolean("onboarding_done", false)
+            val isLoggedIn = getSharedPreferences("user_session", MODE_PRIVATE)
+                .getBoolean("is_logged_in", false)
 
-            // 2. Tentukan tujuan berdasarkan status login
-            val targetActivity = if (isLoggedIn) {
-                BaseActivity::class.java
-            } else {
-                AuthActivity::class.java
+            val target = when {
+                !onboardingDone -> OnboardingActivity::class.java
+                isLoggedIn -> BaseActivity::class.java
+                else -> AuthActivity::class.java
             }
 
-//             3. Pindah Halaman & Tutup SplashScreen
-            startActivity(Intent(this@SplashScreenActivity, targetActivity))
+            startActivity(Intent(this@SplashScreenActivity, target))
             finish()
         }
     }
+}

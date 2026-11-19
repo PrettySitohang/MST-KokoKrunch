@@ -33,18 +33,18 @@ class HomeFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        // Tombol Lihat Lainnya (Navigasi ke CatalogActivity)
-        binding.btnLihatLainnya.setOnClickListener {
-            val intent = Intent(requireContext(), CatalogActivity::class.java)
-            startActivity(intent)
+        binding.menuKatalog.setOnClickListener {
+            startActivity(Intent(requireContext(), CatalogActivity::class.java))
         }
-
-        // Tombol Unduh Sertifikat (Generate PDF Secara Langsung)
-        binding.btnLihatSertifikat.setOnClickListener {
+        binding.menuVarietas.setOnClickListener {
+            startActivity(Intent(requireContext(), VarietasActivity::class.java))
+        }
+        binding.menuSertifikat.setOnClickListener {
             generateAndSaveCertificatePdf()
         }
-
-        // Tombol Back Topbar
+        binding.menuWebsite.setOnClickListener {
+            startActivity(Intent(requireContext(), WebViewActivity::class.java))
+        }
         binding.btnBack.setOnClickListener {
             requireActivity().finish()
         }

@@ -6,7 +6,9 @@ import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import androidx.recyclerview.widget.GridLayoutManager
 import com.example.mst_kokokrunch.databinding.ActivityCatalogBinding
+
 
 class CatalogActivity : AppCompatActivity() {
 
@@ -25,19 +27,10 @@ class CatalogActivity : AppCompatActivity() {
             insets
         }
 
-        // Fungsi untuk membuka DetailProductFragment
-        val openDetailProduct = {
-            supportFragmentManager.beginTransaction()
-                .replace(binding.main.id, DetailProductFragment())
-                .addToBackStack(null)
-                .commit()
+        binding.rvProducts.layoutManager = GridLayoutManager(this, 2)
+        binding.rvProducts.adapter = ProductAdapter(ProductData.products) { product ->
+            openDetailProduct(product.id)
         }
-
-        // Event klik item produk
-        binding.itemProduct1.setOnClickListener { openDetailProduct() }
-        binding.itemProduct2.setOnClickListener { openDetailProduct() }
-        binding.itemProduct3.setOnClickListener { openDetailProduct() }
-        binding.itemProduct4.setOnClickListener { openDetailProduct() }
 
         // Event klik button Lihat Lebih
         binding.btnLihatLebih.setOnClickListener {
@@ -50,5 +43,11 @@ class CatalogActivity : AppCompatActivity() {
         binding.btnBack.setOnClickListener {
             finish()
         }
+    }
+    private fun openDetailProduct(productId: String) {
+        supportFragmentManager.beginTransaction()
+            .replace(binding.main.id, DetailProductFragment.newInstance(productId))
+            .addToBackStack(null)
+            .commit()
     }
 }
